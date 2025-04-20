@@ -1,25 +1,33 @@
 import { TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { judgeAnswer } from "../lib/judgeanser";
-import { selectQuestion } from "../lib/selectquestion";
+import { GameManager } from "../lib/gamemanager";
+import { useNavigate } from "react-router-dom";
 
 export const Game = () => {
+  const navigate = useNavigate();
   const [ans, setAns] = useState("");
-  const [count, setCount] = useState(0);
   const [time, setTime] = useState(10);
 
-  const [questions] = useState(selectQuestion(10));
-  const [question, setQuestion] = useState(questions[0]);
+  const [gameManager] = useState(new GameManager(10));
+
+  const checkAnswer = () => {
+    if (gameManager.checkAnswer(ans)) {
+      console.log("正解");
+    }
+  };
 
   const reset = () => {
-    setCount(count + 1);
+    if (gameManager.isFinished()) {
+      navigate("/result");
+    }
+    gameManager.nextQuestion();
     setTime(10);
-    setQuestion(questions[count + 1]);
+    setAns("");
   };
 
   useEffect(() => {
     if (time <= 0) {
-      judgeAnswer(question, ans);
+      checkAnswer();
       reset();
     } else {
       const timer = setTimeout(() => {
@@ -29,10 +37,12 @@ export const Game = () => {
     }
   });
 
+  console.log(gameManager.currentIndex);
+
   return (
     <>
       <h1>Game</h1>
-      <p>{question.question}</p>
+      <p>{gameManager.getQuestion()}</p>
       <p>{time}</p>
       <TextField
         variant="standard"
@@ -41,7 +51,7 @@ export const Game = () => {
         onChange={(e) => setAns(e.target.value)}
         onKeyDown={(e) => {
           if (e.key == "Enter") {
-            judgeAnswer(question, ans);
+            checkAnswer();
             reset();
           }
         }}
