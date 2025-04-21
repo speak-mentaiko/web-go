@@ -1,43 +1,39 @@
 import { TextField } from "@mui/material";
-import { useEffect, useState } from "react";
-import { GameManager } from "../lib/gamemanager";
+import { useState } from "react";
+import { GameManager } from "../lib/gameManager";
 import { useNavigate } from "react-router-dom";
+import { useTimer } from "../hooks/useTimer";
 
 export const Game = () => {
   const navigate = useNavigate();
-  const [ans, setAns] = useState("");
-  const [time, setTime] = useState(10);
+  const { time, resetTimer } = useTimer(10, () => {
+    timeOut();
+  });
 
+  const [ans, setAns] = useState("");
   const [gameManager] = useState(new GameManager(10));
 
   const checkAnswer = () => {
     if (gameManager.checkAnswer(ans)) {
       console.log("正解");
+      moveToNext();
     }
-  };
-
-  const reset = () => {
-    if (gameManager.isFinished()) {
-      navigate("/result");
-    }
-    gameManager.nextQuestion();
-    setTime(10);
     setAns("");
   };
 
-  useEffect(() => {
-    if (time <= 0) {
-      checkAnswer();
-      reset();
-    } else {
-      const timer = setTimeout(() => {
-        setTime(time - 1);
-      }, 1000);
-      return () => clearTimeout(timer);
+  const timeOut = () => {
+    if (gameManager.checkAnswer(ans)) {
+      console.log("正解");
     }
-  });
+    moveToNext();
+  };
 
-  console.log(gameManager.currentIndex);
+  const moveToNext = () => {
+    if (gameManager.isFinished()) navigate("/result");
+    gameManager.nextQuestion();
+    resetTimer();
+    setAns("");
+  };
 
   return (
     <>
@@ -52,7 +48,6 @@ export const Game = () => {
         onKeyDown={(e) => {
           if (e.key == "Enter") {
             checkAnswer();
-            reset();
           }
         }}
       />

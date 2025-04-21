@@ -10,7 +10,7 @@ export class GameManager {
 
   /**
    *
-   * @param {number} num 出題する問題数
+   * @param num 出題する問題数
    */
   constructor(num: number) {
     this.questions = this.selectQuestions(num);
@@ -19,8 +19,8 @@ export class GameManager {
 
   /**
    *
-   * @param {number} num 問題数
-   * @returns {Question[]} 選ばれた問題の配列
+   * @param num 問題数
+   * @returns 選ばれた問題の配列
    */
   selectQuestions = (num: number) => {
     const shuffled = [...question].sort(() => Math.random() - 0.5);
@@ -29,8 +29,8 @@ export class GameManager {
 
   /**
    *
-   * @param {string} input ユーザーが入力した答え
-   * @returns {boolean}
+   * @param input ユーザーが入力した答え
+   * @returns
    */
   checkAnswer = (input: string) => {
     const question = this.questions[this.currentIndex];
@@ -40,8 +40,8 @@ export class GameManager {
 
   /**
    *
-   * @param {string} str 変換したい文字列
-   * @returns {string} 変換された文字列
+   * @param str 変換したい文字列
+   * @returns 変換された文字列
    */
   convertToHiragana = (str: string) => {
     return str.replace(/[\u30a1-\u30f6]/g, (match) => {
