@@ -4,6 +4,8 @@ import { GameManager } from "../lib/gameManager";
 import { useNavigate } from "react-router-dom";
 import { useTimer } from "../hooks/useTimer";
 
+type Phase = "question" | "finished";
+
 export const Game = () => {
   const navigate = useNavigate();
   const { time, resetTimer } = useTimer(10, () => {
@@ -11,12 +13,13 @@ export const Game = () => {
   });
 
   const [ans, setAns] = useState("");
+  const [phase, setPhase] = useState<Phase>("question");
   const [gameManager] = useState(new GameManager(10));
 
   const checkAnswer = () => {
     if (gameManager.checkAnswer(ans)) {
       console.log("正解");
-      moveToNext();
+      setPhase("finished");
     }
     setAns("");
   };
@@ -25,20 +28,23 @@ export const Game = () => {
     if (gameManager.checkAnswer(ans)) {
       console.log("正解");
     }
-    moveToNext();
+    setPhase("finished");
   };
 
   const moveToNext = () => {
     if (gameManager.isFinished()) navigate("/result");
     gameManager.nextQuestion();
+
     resetTimer();
     setAns("");
+    setPhase("question");
   };
 
   return (
     <>
       <h1>Game</h1>
       <p>{gameManager.getQuestion()}</p>
+      <p>{phase}</p>
       <p>{time}</p>
       <TextField
         variant="standard"
@@ -47,7 +53,11 @@ export const Game = () => {
         onChange={(e) => setAns(e.target.value)}
         onKeyDown={(e) => {
           if (e.key == "Enter") {
-            checkAnswer();
+            if (phase === "question") {
+              checkAnswer();
+            } else {
+              moveToNext();
+            }
           }
         }}
       />

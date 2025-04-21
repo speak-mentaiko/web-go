@@ -77,4 +77,40 @@ export const question: Question[] = [
     answer: "でぃーぷぶらっど",
     tags: ["ability"],
   },
+  {
+    id: "17",
+    question: "黄金錬成",
+    answer: "あるすまぐな",
+    tags: ["ability"],
+  },
+  {
+    id: "18",
+    question: "竜王の顎",
+    answer: "どらごんすとらいく",
+    tags: ["ability"],
+  },
+  {
+    id: "19",
+    question: "一方通行",
+    answer: "あくせられーた",
+    tags: ["ability", "person"],
+  },
+  {
+    id: "20",
+    question: "妹達",
+    answer: "しすたーず",
+    tags: ["others"],
+  },
+  {
+    id: "21",
+    question: "白井黒子",
+    answer: "しらいくろこ",
+    tags: ["person"],
+  },
+  {
+    id: "22",
+    question: "絶対能力進化計画",
+    answer: "れべるしっくすしふとけいかく",
+    tags: ["others"],
+  },
 ];
