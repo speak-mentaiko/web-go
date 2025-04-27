@@ -8,7 +8,7 @@ type Phase = "question" | "finished";
 
 export const Game = () => {
   const navigate = useNavigate();
-  const { time, resetTimer } = useTimer(10, () => {
+  const { time, resetTimer, stopTimer } = useTimer(10, () => {
     timeOut();
   });
 
@@ -20,6 +20,7 @@ export const Game = () => {
     if (gameManager.checkAnswer(ans)) {
       console.log("正解");
       setPhase("finished");
+      stopTimer();
     }
     setAns("");
   };
@@ -29,6 +30,7 @@ export const Game = () => {
       console.log("正解");
     }
     setPhase("finished");
+    stopTimer();
   };
 
   const moveToNext = () => {

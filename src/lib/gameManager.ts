@@ -10,10 +10,10 @@ export class GameManager {
 
   /**
    *
-   * @param num 出題する問題数
+   * @param questionCount 出題する問題数
    */
-  constructor(num: number) {
-    this.questions = this.selectQuestions(num);
+  constructor(questionCount: number) {
+    this.questions = this.selectQuestions(questionCount);
     this.currentIndex = 0;
   }
 
