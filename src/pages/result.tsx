@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 export const Result = () => {
   const correctsState = useLocation();
 
-  console.log(correctsState.state.questions);
+  console.log(correctsState.state.correctsState);
 
   return (
     <>

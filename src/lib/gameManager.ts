@@ -34,7 +34,11 @@ export class GameManager {
    */
   checkAnswer = (input: string) => {
     const question = this.questions[this.currentIndex];
-    if (this.convertToHiragana(input) === question.answer) return true;
+
+    const convertedInput = this.convertToHiragana(input);
+    const convertedAnswer = this.convertToHiragana(question.answer);
+
+    if (convertedInput === convertedAnswer) return true;
     return false;
   };
 

@@ -7,7 +7,7 @@ export const question: Question[] = [
     answer: "かみじょうとうま",
     tags: ["person"],
   },
-  { id: "2", question: "禁書目録", answer: "いんでっくす", tags: ["person"] },
+  { id: "2", question: "禁書目録", answer: "インデックス", tags: ["person"] },
   { id: "3", question: "御坂美琴", answer: "みさかみこと", tags: ["person"] },
   { id: "4", question: "神裂火織", answer: "かんざきかおり", tags: ["person"] },
   { id: "5", question: "月読小萌", answer: "つくよみこもえ", tags: ["person"] },
@@ -26,7 +26,7 @@ export const question: Question[] = [
   {
     id: "8",
     question: "必要悪の教会",
-    answer: "ねせさりうす",
+    answer: "ネセサリウス",
     tags: ["organization"],
   },
   {
@@ -44,25 +44,25 @@ export const question: Question[] = [
   {
     id: "11",
     question: "自動書記",
-    answer: "よはねのぺん",
+    answer: "ヨハネのペン",
     tags: ["ability"],
   },
   {
     id: "12",
     question: "竜王の殺息",
-    answer: "どらごんぶれす",
+    answer: "ドラゴンブレス",
     tags: ["ability"],
   },
   {
     id: "13",
     question: "冥土帰し",
-    answer: "へぶんきゃんせらー",
+    answer: "ヘブンキャンセラー",
     tags: ["person"],
   },
   {
     id: "14",
     question: "魔女狩りの王",
-    answer: "いのけんてぃうす",
+    answer: "イノケンティウス",
     tags: ["ability"],
   },
   {
@@ -74,31 +74,31 @@ export const question: Question[] = [
   {
     id: "16",
     question: "吸血殺し",
-    answer: "でぃーぷぶらっど",
+    answer: "ディープブラッド",
     tags: ["ability"],
   },
   {
     id: "17",
     question: "黄金錬成",
-    answer: "あるすまぐな",
+    answer: "アルスマグナ",
     tags: ["ability"],
   },
   {
     id: "18",
     question: "竜王の顎",
-    answer: "どらごんすとらいく",
+    answer: "ドラゴンストライク",
     tags: ["ability"],
   },
   {
     id: "19",
     question: "一方通行",
-    answer: "あくせられーた",
+    answer: "アクセラレータ",
     tags: ["ability", "person"],
   },
   {
     id: "20",
     question: "妹達",
-    answer: "しすたーず",
+    answer: "シスターズ",
     tags: ["others"],
   },
   {
@@ -110,7 +110,7 @@ export const question: Question[] = [
   {
     id: "22",
     question: "絶対能力進化計画",
-    answer: "れべるしっくすしふとけいかく",
+    answer: "レベルシックスシフトけいかく",
     tags: ["others"],
   },
 ];

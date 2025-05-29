@@ -19,8 +19,10 @@ export const Game = () => {
   const [phase, setPhase] = useState<Phase>("question");
 
   const questions = gameManager.questions;
-  const correctsState = new Map<Question, boolean | null>(
-    new Map(questions.map((key) => [key, null]))
+  const [correctsState] = useState(
+    new Map<Question, boolean | null>(
+      new Map(questions.map((key) => [key, null]))
+    )
   );
 
   const checkAnswer = () => {
@@ -44,19 +46,20 @@ export const Game = () => {
   };
 
   const moveToNext = () => {
-    if (gameManager.isFinished())
+    if (gameManager.isFinished()) {
       navigate("/result", {
         state: {
-          correctState: correctsState,
+          correctsState: correctsState,
         },
       });
+    }
     gameManager.nextQuestion();
 
     resetTimer();
     setPhase("question");
   };
 
-  console.log(correctsState.keys());
+  console.log(correctsState);
   console.log(correctsState.get(questions[gameManager.currentIndex]));
 
   return (
