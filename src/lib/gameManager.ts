@@ -54,6 +54,10 @@ export class GameManager {
     return this.questions[this.currentIndex].question;
   };
 
+  getAnswer = () => {
+    return this.questions[this.currentIndex].answer;
+  };
+
   nextQuestion = () => {
     this.currentIndex++;
   };
