@@ -8,7 +8,7 @@ import { Question } from "../types/question";
 type Phase = "question" | "finished";
 
 export const Game = () => {
-  const TIME_LIMIT = 15;
+  const TIME_LIMIT = 30;
   const QUESTION_NUM = 10;
 
   const navigate = useNavigate();
@@ -58,9 +58,6 @@ export const Game = () => {
     resetTimer();
     setPhase("question");
   };
-
-  console.log(correctsState);
-  console.log(correctsState.get(questions[gameManager.currentIndex]));
 
   return (
     <>
