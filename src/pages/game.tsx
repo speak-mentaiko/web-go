@@ -14,11 +14,11 @@ export const Game = () => {
   const navigate = useNavigate();
   const { time, resetTimer, stopTimer } = useTimer(TIME_LIMIT, () => timeOut());
 
-  const [gameManager] = useState(new GameManager(QUESTION_NUM));
+  const [gameManager] = useState<GameManager>(new GameManager(QUESTION_NUM));
   const [ans, setAns] = useState("");
   const [phase, setPhase] = useState<Phase>("question");
+  const [questions] = useState<Question[]>(gameManager.questions);
 
-  const questions = gameManager.questions;
   const [correctsState] = useState(
     new Map<Question, boolean | null>(
       new Map(questions.map((key) => [key, null]))
@@ -83,11 +83,7 @@ export const Game = () => {
         onChange={(e) => setAns(e.target.value)}
         onKeyDown={(e) => {
           if (e.key == "Enter") {
-            if (phase === "question") {
-              checkAnswer();
-            } else {
-              moveToNext();
-            }
+            void (phase === "question" ? checkAnswer() : moveToNext());
           }
         }}
       />
