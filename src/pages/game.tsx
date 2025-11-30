@@ -3,9 +3,6 @@ import { useState } from "react";
 import { GameManager } from "../lib/gameManager";
 import { useNavigate } from "react-router-dom";
 import { useTimer } from "../hooks/useTimer";
-import { Question } from "../types/question";
-
-type Phase = "question" | "finished";
 
 export const Game = () => {
   const TIME_LIMIT = 30;
@@ -16,31 +13,18 @@ export const Game = () => {
 
   const [gameManager] = useState<GameManager>(new GameManager(QUESTION_NUM));
   const [ans, setAns] = useState("");
-  const [phase, setPhase] = useState<Phase>("question");
-  const [questions] = useState<Question[]>(gameManager.questions);
 
-  const [correctsState] = useState(
-    new Map<Question, boolean | null>(
-      new Map(questions.map((key) => [key, null]))
-    )
-  );
+  const phase = gameManager.getPhase();
 
   const checkAnswer = () => {
     if (gameManager.checkAnswer(ans)) {
-      correctsState.set(questions[gameManager.currentIndex], true);
-      setPhase("finished");
       stopTimer();
     }
     setAns("");
   };
 
   const timeOut = () => {
-    if (gameManager.checkAnswer(ans)) {
-      correctsState.set(questions[gameManager.currentIndex], true);
-    } else {
-      correctsState.set(questions[gameManager.currentIndex], false);
-    }
-    setPhase("finished");
+    gameManager.setPhase("finished");
     stopTimer();
     setAns("");
   };
@@ -49,14 +33,14 @@ export const Game = () => {
     if (gameManager.isFinished()) {
       navigate("/result", {
         state: {
-          correctsState: correctsState,
+          correctsState: gameManager.getQuestionsState(),
         },
       });
     }
     gameManager.nextQuestion();
+    gameManager.setPhase("question");
 
     resetTimer();
-    setPhase("question");
   };
 
   return (
@@ -66,11 +50,7 @@ export const Game = () => {
       {phase === "finished" ? (
         <>
           <p>{gameManager.getAnswer()}</p>
-          <p>
-            {correctsState.get(questions[gameManager.currentIndex])
-              ? "正解"
-              : "不正解"}
-          </p>
+          <p>{gameManager.isCurrent() ? "正解" : "不正解"}</p>
         </>
       ) : (
         <p>{time}</p>
